@@ -1,3 +1,25 @@
+{% if section.blocks.size > 0 %}
+  <div class="slider-product-proposal">
+    <div class="page-width slider-product-proposal__container">
+      <div class="slider-product-proposal__content">
+        <h2 class="slider-product-proposal__title"></h2>
+        <div class="slider-product-proposal__subtitle"></div>
+      </div>
+      <div class="slider-porduct-proposal__slider">
+        <div class="slider-product-proposal__slider-list">
+          {% for block in section.blocks %}
+            {% if block.settings.proposal_product != blank %}
+              {% assign product = block.settings.proposal_product %}
+              <div class="slider-proposal__slider-item">
+                <h4 class="slider-item__title">{{ product.title }}</h4>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
 <div class="{% if section.settings.include_margins %}page-width{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
   {%- for block in section.blocks -%}
     {% render block %}
@@ -14,7 +36,11 @@
 <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'slick.min.js' | asset_url }}" defer="defer"></script>
 
-<script></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    $('#shopify-section-{{ section.id }} .slider-product-proposal__slider-list').slick();
+  });
+</script>
 {% schema %}
 {
   "name": "Slider Products",
