@@ -11,7 +11,24 @@
             {% if block.settings.proposal_product != blank %}
               {% assign product = block.settings.proposal_product %}
               <div class="slider-proposal__slider-item">
-                <h4 class="slider-item__title">{{ product.title }}</h4>
+                <a href="{{ product.url }}" class="slider-item__link">
+                  <div class="slider-item__image">
+                    <img
+                      src="{{ product.featured_image | img_url: 'medium' }}"
+                      alt="{{ product.featured_image.alt | default: product.title }}"
+                      loading="lazy"
+                    >
+                  </div>
+                  <h4 class="slider-item__title">{{ product.title }}</h4>
+                  {% if product.content != blank %}
+                    <div class="slider-item__content">
+                      {{ product.content | truncate: 50, '!!!' }}
+                    </div>
+                  {% endif %}
+                  <div class="slider-item__price">
+                    {{ product.price | money_with_currency }}
+                  </div>
+                </a>
               </div>
             {% endif %}
           {% endfor %}
@@ -39,7 +56,25 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     $('#shopify-section-{{ section.id }} .slider-product-proposal__slider-list').slick({
-      slidesToShow: {{  section.settings.slider_items }}
+      slidesToShow: {{  section.settings.slider_items }},
+      speed: 300,
+      slidesToScroll: 4,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: {{  section.settings.slider_items_tab }},
+            slidesToScroll: {{  section.settings.slider_items_mob }}
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: {{  section.settings.slider_items_mob }},
+            slidesToScroll: {{  section.settings.slider_items_mob }}
+          }
+        }
+      ]
     });
   });
 </script>
@@ -61,8 +96,26 @@
       "min": 1,
       "max": 5,
       "step": 1,
-      "label": "Items per page",
+      "label": "Items per page PC",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "slider_items_tab",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Items per page table",
       "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slider_items_mob",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Items per page mobile",
+      "default": 1
     }
   ],
   "blocks": [
