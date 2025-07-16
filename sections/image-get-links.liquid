@@ -1,22 +1,20 @@
 <div class="page-width">
-    12345
-    {%- for block in section.blocks -%}
-        {% render block %}
-        {%- endfor -%}
-    {%- endfor -%}
+  12345
+  {%- for block in section.blocks -%}
+    {% render block %}
+  {%- endfor -%}
 </div>
 
 {% schema %}
 {
-    "name": "image get links",
-    "tag": "section",
-    "class": "section",
-    "settings": [
-    ],
-    "presets": [
-        {
-            "name": "t:sections.apps.presets.name"
-        }
-    ]
+  "name": "image get links",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "image get links"
+    }
+  ]
 }
 {% endschema %}
