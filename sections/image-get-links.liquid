@@ -1,8 +1,23 @@
 <div class="page-width">
-  12345
   {%- for block in section.blocks -%}
     {% render block %}
   {%- endfor -%}
+  {% if section.settings.get_image_v_1 != blank %}
+    <div>
+      <img src="{{ section.settings.get_image_v_1 | img_url: 'original' }}" alt="">
+    </div>
+    <div>
+      <img src="{{ section.settings.get_image_v_1 | img_url: 'icon' }}" alt=" section.settings.get_image_v_1.alt">
+      <img src="{{ section.settings.get_image_v_1 | img_url: '500' }}" alt=" section.settings.get_image_v_1.alt">
+      {{ section.settings.get_image_v_1 | image_url: width: '900' | image_tag: preload: true }}
+
+      <img src="{{ 'bg-gepard.webp' | asset_url }}" alt="background gepard">
+      <hr>
+      {% render 'icon-shopify-snippets' %}
+      <hr>
+      {% include 'icon-shopify-snippets' %}
+    </div>
+  {% endif %}
 </div>
 
 {% schema %}
@@ -10,7 +25,13 @@
   "name": "image get links",
   "tag": "section",
   "class": "section",
-  "settings": [],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "get_image_v_1",
+      "label": "Get Image"
+    }
+  ],
   "presets": [
     {
       "name": "image get links"
