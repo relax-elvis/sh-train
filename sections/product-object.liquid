@@ -1,8 +1,42 @@
+<hr>
+<div>
+  {% comment %} {{ product | json }} {% endcomment %}
+  product.title - string - {{ product.title }}
+  <br>
+  product.id - number - {{ product.id }}
+  <br>
+  product.tag - array - {{ product.title }}
+  <br>
+  product.available - boolean - {{ product.available }}
+  <br>
+  product.featured_image - object - {{ product.featured_image }}
+  <br>
+  product.featured_image.id - object - {{ product.featured_image.id }}
+  <br>
+  product.variants - array-w-object - {{ product.variants | json }}
+  <br>
+  product.variants.size - array-w-object - {{ product.variants.size }}
+  <br>
+  product.variants[0].title == id - array-w-object - {{ product.variants[0].title }} == {{ product.variants[0].id }}
+  <br>
+  {% if product.variants.size > 0 %}
+    <ul>
+      {% for variant in product.variants %}
+        <li>{{ variant.title }} == {{ variant.id }}</li>
+        Variant option
+        {% for option in variant.options %}
+          {{ option }}
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% comment %} {{ product | json }} {% endcomment %}
+</div>
 {% schema %}
 {
   "name": "Product object",
   "tag": "section",
-  "class": "section",
+  "class": "section product-object-section",
   "settings": [],
   "presets": [
     {
